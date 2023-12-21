@@ -7,19 +7,19 @@
     ],
     "storage_paths": [
         {
-            "path": "/home/rocksdb_hdd",
+            "path": "/users/Ruisong/rocksdb_hdd",
             "media_type": "SATAHDD"
         },
         {
-            "path": "/home/rocksdb_ssd",
+            "path": "/users/Ruisong/rocksdb_ssd",
             "media_type": "SATASSD"
         },
         {
-            "path": "/home/rocksdb_nvme",
+            "path": "/users/Ruisong/rocksdb_nvme",
             "media_type": "NVMeSSD"
         },
         {
-            "path": "/home/rocksdb_pm",
+            "path": "/users/Ruisong/rocksdb_pm",
             "media_type": "PM"
         }
     ],
