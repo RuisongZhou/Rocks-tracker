@@ -140,9 +140,9 @@ def start_iostat(db_path):
 
         iostat_list = ["iostat","1","-m"]
 
-        for target_device in device_map:
-            if target_device in db_path:
-                iostat_list.append(device_map[target_device])
+        # for target_device in device_map:
+        #     if target_device in db_path:
+        #         iostat_list.append(device_map[target_device])
 
         iostat_process = subprocess.Popen(iostat_list,stdout=out,stderr = err)
 
