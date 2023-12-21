@@ -38,17 +38,10 @@ if __name__ == '__main__':
     }
 
     experiment_sets={
-<<<<<<< HEAD
 #            "baseline":{"FEA_enable":False,"TEA_enable":False},
 #            "FEA":{"FEA_enable":True,"TEA_enable":False},
 #            "TEA":{"FEA_enable":False,"TEA_enable":True},
             "FEAT":{"FEA_enable":True,"TEA_enable":True},
-=======
-            "baseline":{"FEA_enable":False,"TEA_enable":False},
-            "FEA":{"FEA_enable":True,"TEA_enable":False},
-            "TEA":{"FEA_enable":False,"TEA_enable":True},
-#            "FEAT":{"FEA_enable":True,"TEA_enable":True},
->>>>>>> 3a066e1468f7caceb151d5a73a77d3d81fb0ab0d
             }
 
     for experiment in experiment_sets:

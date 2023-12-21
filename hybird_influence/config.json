@@ -1,0 +1,29 @@
+{
+    "cpu_set": [
+        2, 4, 8, 16
+    ],
+    "memtable_size_set": [
+        "64*1024*1024"
+    ],
+    "storage_paths": [
+        {
+            "path": "/home/rocksdb_hdd",
+            "media_type": "SATAHDD"
+        },
+        {
+            "path": "/home/rocksdb_ssd",
+            "media_type": "SATASSD"
+        },
+        {
+            "path": "/home/rocksdb_nvme",
+            "media_type": "NVMeSSD"
+        },
+        {
+            "path": "/home/rocksdb_pm",
+            "media_type": "PM"
+        }
+    ],
+    "fast_device_size" : [
+        1, 2, 4, 8, 16, 32, 64, 128, 256
+    ]
+}

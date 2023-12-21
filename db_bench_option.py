@@ -31,7 +31,7 @@ DEFAULT_BLOOM_BIT = 10
 
 # default entry options
 DEFAULT_KEY_SIZE = 8
-DEFAULT_VALUE_SIZE = 100
+DEFAULT_VALUE_SIZE = 1000
 DEFAULT_DB_SIZE = int(default_cfg.get("Entry Control", "db_size"))
 DEFAULT_ENTRY_COUNT = int(DEFAULT_DB_SIZE / DEFAULT_VALUE_SIZE)
 
@@ -57,7 +57,7 @@ ori_parameter_list = {
     "bloom_bits": str(DEFAULT_BLOOM_BIT),
     "compression_type": DEFAULT_COMPRESSION,
     "base_background_compactions": 1,
-    "report_bg_io_stats": False,
+    "report_bg_io_stats": True,
     # "detailed_running_stats":True
 }
 
