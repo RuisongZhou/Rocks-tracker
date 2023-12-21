@@ -3,7 +3,6 @@
 formatted_data/*
 **/*.pyc
 **/key_distribution
-default.ini
 motivation_bootstrap.py
 **/**.db
 **/**.journal*

@@ -6,10 +6,10 @@ from parameter_generator import StorageMaterial
 default_cfg = ConfigParser()
 default_cfg.read("default.ini")
 
-SUDO_PASSWD = default_cfg.get("Permission", "passwd")
-DEFAULT_DB_BENCH = default_cfg.get("Paths", "db_bench_path")
+SUDO_PASSWD = ""  #default_cfg.get("Permission", "passwd")
+DEFAULT_DB_BENCH = "/home/hybridrocks/db_bench" #default_cfg.get("Paths", "db_bench_path")
 
-CPU_RESTRICTING_TYPE = int(default_cfg.get("CPU", "limit_type"))
+CPU_RESTRICTING_TYPE = 0 #int(default_cfg.get("CPU", "limit_type"))
 
 print("config loaded")
 print("CPU limiting type :", CPU_RESTRICTING_TYPE)
@@ -32,12 +32,12 @@ DEFAULT_BLOOM_BIT = 10
 # default entry options
 DEFAULT_KEY_SIZE = 8
 DEFAULT_VALUE_SIZE = 1000
-DEFAULT_DB_SIZE = int(default_cfg.get("Entry Control", "db_size"))
+DEFAULT_DB_SIZE = DEFAULT_VALUE_SIZE * 100000000  #int(default_cfg.get("Entry Control", "db_size"))
 DEFAULT_ENTRY_COUNT = int(DEFAULT_DB_SIZE / DEFAULT_VALUE_SIZE)
 
 # default CPU options
 DEFAULT_COMPACTION_WORKER = str(multiprocessing.cpu_count())
-CPU_IN_TOTAL = int(default_cfg.get("CPU", "cpu_in_total"))
+CPU_IN_TOTAL = 32 #int(default_cfg.get("CPU", "cpu_in_total"))
 
 ori_parameter_list = {
     "db": DEFAULT_DB_BENCH,
