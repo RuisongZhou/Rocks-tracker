@@ -1,5 +1,4 @@
 **/__pycache__/*
-*.ini
 formatted_data/*
 **/*.pyc
 **/key_distribution
