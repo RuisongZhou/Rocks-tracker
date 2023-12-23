@@ -9,7 +9,7 @@ default_cfg.read("default.ini")
 SUDO_PASSWD = ""  #default_cfg.get("Permission", "passwd")
 DEFAULT_DB_BENCH = "/users/Ruisong/hybridrocks/db_bench" #default_cfg.get("Paths", "db_bench_path")
 
-CPU_RESTRICTING_TYPE = 0 #int(default_cfg.get("CPU", "limit_type"))
+CPU_RESTRICTING_TYPE = -1 #int(default_cfg.get("CPU", "limit_type"))
 
 print("config loaded")
 print("CPU limiting type :", CPU_RESTRICTING_TYPE)
