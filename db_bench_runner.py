@@ -118,7 +118,7 @@ def create_db_path(db_path):
 
 def initial_cgroup():
     cgcreate_result = subprocess.run(
-        ['sudo cgcreate', '-g', 'blkio,cpu:/'+CGROUP_NAME], stdout=subprocess.PIPE)
+        ['cgcreate', '-g', 'blkio,cpu:/'+CGROUP_NAME], stdout=subprocess.PIPE)
     if cgcreate_result.stdout.decode('utf-8') != "":
         raise Exception("Cgreate failed due to:" +
                         cgcreate_result.stdout.decode('utf-8'))
@@ -126,7 +126,7 @@ def initial_cgroup():
 
 def clean_cgroup():
     cgdelete_result = subprocess.run(
-        ['sudo cgdelete', '-r', 'blkio,cpu:/'+CGROUP_NAME], stdout=subprocess.PIPE)
+        ['cgdelete', '-r', 'blkio,cpu:/'+CGROUP_NAME], stdout=subprocess.PIPE)
     if cgdelete_result.stdout.decode('utf-8') != "":
         raise Exception("Cgreate failed due to:" +
                         cgdelete_result.stdout.decode('utf-8'))
