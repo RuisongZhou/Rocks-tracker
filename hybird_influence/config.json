@@ -7,13 +7,9 @@
     ],
     "storage_paths": [
         {
-            "path": "/users/Ruisong/rocksdb_hdd",
-            "media_type": "SATAHDD"
-        },
-        {
-            "path": "/users/Ruisong/rocksdb_ssd",
-            "media_type": "SATASSD"
-        } 
+            "path": "/users/Ruisong/rocksdb_result",
+            "media_type": "SATASDD"
+        }
     ],
     "fast_device_size" : [
         1, 2, 4, 8, 16, 32, 64, 128, 256
