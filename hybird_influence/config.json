@@ -8,7 +8,7 @@
     "storage_paths": [
         {
             "path": "/users/Ruisong/rocksdb_result",
-            "media_type": "SATASDD"
+            "media_type": "SATASSD"
         }
     ],
     "hybrid_storage_paths": [
@@ -18,7 +18,7 @@
         },
         {
             "path": "/users/Ruisong/rocksdb_ssd",
-            "media_type": "SATASDD"
+            "media_type": "SATASSD"
         }
     ],
     "fast_device_size" : [
