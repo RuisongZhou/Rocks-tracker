@@ -26,14 +26,15 @@ if __name__ == '__main__':
     for fast_device_size_base in fast_device_size_base_list:    
         target_result_dir = result_dir+str(fast_device_size_base)
         # L0 256M L1 2560M L2 25.6G L3 256000M
-        ssd_size = fast_device_size_base * DEFAULT_L1_SIZE * DEFAULT_COMPACTION_TRIGGER
-        hdd_size = 10 * ssd_size
+        fast_size = fast_device_size_base * DEFAULT_L1_SIZE * DEFAULT_COMPACTION_TRIGGER
+        slow_size = 10 * fast_size
         ssd_path = parameter_dict["hybrid_storage_paths"]["SATASSD"]
         hdd_path = parameter_dict["hybrid_storage_paths"]["SATAHDD"]
+        nvme_path = parameter_dict["hybrid_storage_paths"]["NVMESSD"]
         print(target_result_dir)
         runner = DB_launcher(
             env, target_result_dir, db_bench=DEFAULT_DB_BENCH, extend_options={
-                "db_path": ssd_path+":"+str(ssd_size)+","+hdd_path+":"+str(hdd_size),
+                "db_path": nvme_path+":"+str(fast_size)+","+ssd_path+":"+str(slow_size),
                 "value_size":1000,
                 "key_size":16,
                 "report_interval_seconds": 1,

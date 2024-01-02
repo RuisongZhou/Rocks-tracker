@@ -131,6 +131,21 @@ def clean_cgroup():
         raise Exception("Cgreate failed due to:" +
                         cgdelete_result.stdout.decode('utf-8'))
 
+def start_detect_file_size(save_path, raw_db_path):
+    # 处理dbPath
+    db_path_and_size = raw_db_path.split(",")
+    db_path = []
+    for p in db_path_and_size:
+        db_path.append(db_path_and_size.split(":")[0])
+    exec = []
+    with open(save_path + "/file_size.txt", "wb") as out, open(save_path + "/file_size_err.txt", "wb") as err:
+        print("df -h starting")
+        for path in db_path:
+            exec.extend(["du", "-sk", path, ";"])   # -k 以KB为单位
+        df_process = subprocess.Popen(exec,stdout=out,stderr = err)
+    print(exec)
+    print(df_process.pid)
+    return df_process
 
 def start_iostat(db_path):
     with open(db_path + "/iostat.txt", "wb") as out, open(db_path + "/iostat_err.txt", "wb") as err:
@@ -403,7 +418,9 @@ class DB_TASK:
             db_bench_process = start_db_bench(
                 self.db_bench, self.parameter_list["db"], self.parameter_list)
             iostat_process = start_iostat(self.parameter_list["db"],)
-
+            dfstat_process = None
+            if "db_path" in self.parameter_list.keys():
+                dfstat_process = start_detect_file_size(self.parameter_list["db"], self.parameter_list["db_path"])
             stat_recorder = open(
                 self.parameter_list["db"]+"/stat_result.csv", "w")
             # add the header line
@@ -425,6 +442,8 @@ class DB_TASK:
                     stat_recorder.flush()
                     self.copy_result_files(db_bench_process, gap, timer)
                     iostat_process.kill()
+                    if "db_path" in self.parameter_list.keys():
+                        dfstat_process.kill()
                     break
                 except subprocess.TimeoutExpired:
                     timer = timer + gap 
