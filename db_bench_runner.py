@@ -136,7 +136,7 @@ def start_detect_file_size(save_path, raw_db_path):
     db_path_and_size = raw_db_path.split(",")
     db_path = []
     for p in db_path_and_size:
-        db_path.append(db_path_and_size.split(":")[0])
+        db_path.append(p.split(":")[0])
     exec = []
     with open(save_path + "/file_size.txt", "wb") as out, open(save_path + "/file_size_err.txt", "wb") as err:
         print("df -h starting")
