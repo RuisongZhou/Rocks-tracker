@@ -137,11 +137,11 @@ def start_detect_file_size(save_path, raw_db_path):
     db_path = []
     for p in db_path_and_size:
         db_path.append(p.split(":")[0])
-    exec = []
+    exec = ["du", "-sk"]
     with open(save_path + "/file_size.txt", "wb") as out, open(save_path + "/file_size_err.txt", "wb") as err:
         print("df -h starting")
         for path in db_path:
-            exec.extend(["du", "-sk", path, ";"])   # -k 以KB为单位
+            exec.append(path)   # -k 以KB为单位
         df_process = subprocess.Popen(exec,stdout=out,stderr = err)
     print(exec)
     print(df_process.pid)
