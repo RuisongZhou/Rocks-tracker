@@ -143,8 +143,7 @@ def start_detect_file_size(save_path, raw_db_path):
         for path in db_path:
             exec.append(path)   # -k 以KB为单位
         df_process = subprocess.Popen(exec,stdout=out,stderr = err)
-    print(exec)
-    print(df_process.pid)
+
     return df_process
 
 def start_iostat(db_path):
@@ -293,7 +292,7 @@ class DB_TASK:
                             + "num_threads"
                             + "\n")
 
-    def record_psutils(self, timer, p, stat_recorder, gap):
+    def record_psutils(self, timer, p, stat_recorder, gap, actual_db_path):
         result_line = []
         result_line.append(timer)
         with p.oneshot():
@@ -320,6 +319,10 @@ class DB_TASK:
             # thread_stats
             result_line.append(p.num_threads())
         # print(result_line)
+        for db_path in actual_db_path:
+            tier_size = os.popen("du -sk %s" % actual_db_path).read().split('\t')[0]
+            result_line.append(tier_size)
+            
         stat_recorder.write(str(result_line)[1:-1]+"\n")
         return
 
@@ -418,9 +421,13 @@ class DB_TASK:
             db_bench_process = start_db_bench(
                 self.db_bench, self.parameter_list["db"], self.parameter_list)
             iostat_process = start_iostat(self.parameter_list["db"],)
-            dfstat_process = None
+
+            actual_db_path = []
             if "db_path" in self.parameter_list.keys():
-                dfstat_process = start_detect_file_size(self.parameter_list["db"], self.parameter_list["db_path"])
+                db_path_and_size = self.parameter_list["db_path"].split(",")
+                for p in db_path_and_size:
+                    actual_db_path.append(p.split(":")[0])
+
             stat_recorder = open(
                 self.parameter_list["db"]+"/stat_result.csv", "w")
             # add the header line
@@ -428,7 +435,7 @@ class DB_TASK:
                                 + "user_cpu,sys_cpu,io_wait,cpu_percent,cpu_num,"
                                 + "rss,vms,dirty,"
                                 + "read_count,write_count,disk_read_bytes,disk_write_bytes,syscall_read_bytes,syscall_write_bytes,"
-                                + "num_threads"
+                                + "num_threads," + "fast_path_size,slow_path_size"
                                 + "\n")
 
             psutil_db_bench = psutil.Process(db_bench_process.pid)
@@ -442,12 +449,10 @@ class DB_TASK:
                     stat_recorder.flush()
                     self.copy_result_files(db_bench_process, gap, timer)
                     iostat_process.kill()
-                    if "db_path" in self.parameter_list.keys():
-                        dfstat_process.kill()
                     break
                 except subprocess.TimeoutExpired:
                     timer = timer + gap 
-                    self.record_psutils(timer, psutil_db_bench, stat_recorder, gap)
+                    self.record_psutils(timer, psutil_db_bench, stat_recorder, gap, actual_db_path)
                     pass
         except Exception as e:
             self.error_handling(db_bench_process, timer, e)
