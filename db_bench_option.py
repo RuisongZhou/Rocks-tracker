@@ -32,7 +32,7 @@ DEFAULT_BLOOM_BIT = 10
 # default entry options
 DEFAULT_KEY_SIZE = 8
 DEFAULT_VALUE_SIZE = 1000
-DEFAULT_DB_SIZE = DEFAULT_VALUE_SIZE * 100000000  #int(default_cfg.get("Entry Control", "db_size"))
+DEFAULT_DB_SIZE = 200 * 1024 * 1024 * 1024  #int(default_cfg.get("Entry Control", "db_size"))
 DEFAULT_ENTRY_COUNT = int(DEFAULT_DB_SIZE / DEFAULT_VALUE_SIZE)
 
 # default CPU options
@@ -52,14 +52,16 @@ ori_parameter_list = {
     "level0_file_num_compaction_trigger": DEFAULT_COMPACTION_TRIGGER,
     "level0_slowdown_writes_trigger": 20,
     "max_background_compactions": DEFAULT_COMPACTION_WORKER,
-    "max_background_flushes": 1,  # we are focus on single material environment
-    "threads": 1,  # control the input pressure, increase all resource requirement
+    # "max_background_flushes": 1,  # we are focus on single material environment
+    "threads": 4,  # control the input pressure, increase all resource requirement
     "bloom_bits": str(DEFAULT_BLOOM_BIT),
     "compression_type": DEFAULT_COMPRESSION,
     # "base_background_compactions": 1,
     "report_bg_io_stats": True,
     # "detailed_running_stats":True
     "open_files" : 512,
+    "soft_pending_compaction_bytes_limit" : int(0.1 * DEFAULT_DB_SIZE),
+    "hard_pending_compaction_bytes_limit" : int(0.16 * DEFAULT_DB_SIZE),
 }
 
 
