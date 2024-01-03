@@ -320,9 +320,9 @@ class DB_TASK:
             result_line.append(p.num_threads())
         # print(result_line)
         for db_path in actual_db_path:
-            tier_size = os.popen("du -sk %s" % actual_db_path).read().split('\t')[0]
+            tier_size = os.popen("du -sk %s" % db_path).read().split('\t')[0]
             result_line.append(tier_size)
-            
+
         stat_recorder.write(str(result_line)[1:-1]+"\n")
         return
 
@@ -427,7 +427,7 @@ class DB_TASK:
                 db_path_and_size = self.parameter_list["db_path"].split(",")
                 for p in db_path_and_size:
                     actual_db_path.append(p.split(":")[0])
-
+            print(actual_db_path)
             stat_recorder = open(
                 self.parameter_list["db"]+"/stat_result.csv", "w")
             # add the header line
