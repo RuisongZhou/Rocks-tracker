@@ -32,7 +32,7 @@ DEFAULT_BLOOM_BIT = 10
 # default entry options
 DEFAULT_KEY_SIZE = 8
 DEFAULT_VALUE_SIZE = 1000
-DEFAULT_DB_SIZE = 200 * 1024 * 1024 * 1024  #int(default_cfg.get("Entry Control", "db_size"))
+DEFAULT_DB_SIZE = 100 * 1024 * 1024 * 1024  #int(default_cfg.get("Entry Control", "db_size"))
 DEFAULT_ENTRY_COUNT = int(DEFAULT_DB_SIZE / DEFAULT_VALUE_SIZE)
 
 # default CPU options
