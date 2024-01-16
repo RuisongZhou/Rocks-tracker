@@ -462,7 +462,7 @@ class DB_TASK:
     def run(self, gap=1, force_record=False):
         # clear the cache, or the read bytes will be influenced to be 0 in most cases.
         print("clear the memory cache since all input is the same")
-        os.system("sync; echo 1 > /proc/sys/vm/drop_caches")
+        os.system("sync; echo 1 | sudo tee /proc/sys/vm/drop_caches")
         if self.cpu_cores == CPU_IN_TOTAL or force_record == True or CPU_RESTRICTING_TYPE == -1:
             self.run_in_full_cpu(gap)
         else:
