@@ -14,7 +14,7 @@ from db_bench_runner import reset_CPUs
 from parameter_generator import HardwareEnvironment
 from parameter_generator import StorageMaterial
 from db_bench_runner import clean_cgroup
-
+ 
 os.chdir(work_path)
 if __name__ == '__main__':
     env = HardwareEnvironment()
@@ -26,8 +26,8 @@ if __name__ == '__main__':
     for fast_device_size_base in fast_device_size_base_list:    
         target_result_dir = result_dir+str(fast_device_size_base)
         # L0 256M L1 2560M L2 25.6G L3 256000M
-        fast_size = fast_device_size_base * DEFAULT_L1_SIZE * DEFAULT_COMPACTION_TRIGGER
-        slow_size = 10 * fast_size
+        fast_size = fast_device_size_base * 1024 * 1024 * 1024
+        slow_size = 200 * 1024 * 1024 * 1024
         ssd_path = parameter_dict["hybrid_storage_paths"]["SATASSD"]
         hdd_path = parameter_dict["hybrid_storage_paths"]["SATAHDD"]
         nvme_path = parameter_dict["hybrid_storage_paths"]["NVMESSD"]
@@ -38,8 +38,8 @@ if __name__ == '__main__':
                 "value_size":1000,
                 "key_size":16,
                 "report_interval_seconds": 1,
-                "duration": 1800,       #1800s, 30min
-                "benchmarks":"fillrandom,stats",
+                "duration": 3600,       # 60min
+                "benchmarks":"fillbatch,fillrandom,stats",
                 "statistics":"true",
                 "enable_blob_files" : 'true',
                 "enable_blob_garbage_collection":"true",
