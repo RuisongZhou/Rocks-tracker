@@ -21,7 +21,7 @@ if __name__ == '__main__':
     parameter_dict = load_config_file('config.json')
     set_parameters_to_env(parameter_dict, env)
 
-    result_dir = "results_ssd_hdd_hybrid/"
+    result_dir = "results_nvme_ssd_preload_hybrid/"
     fast_device_size_base_list = parameter_dict["fast_device_size"] 
     for fast_device_size_base in fast_device_size_base_list:    
         target_result_dir = result_dir+str(fast_device_size_base)
@@ -39,7 +39,7 @@ if __name__ == '__main__':
                 "key_size":16,
                 "report_interval_seconds": 1,
                 "duration": 7200,       # 120min
-                "benchmarks":"fillbatch,stats,resetstats,fillrandom,stats",
+                "benchmarks":"fillseq,stats,resetstats,fillrandom,stats",
                 "statistics":"true",
             })
         runner.run()
