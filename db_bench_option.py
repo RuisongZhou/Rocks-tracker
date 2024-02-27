@@ -7,7 +7,7 @@ default_cfg = ConfigParser()
 default_cfg.read("default.ini")
 
 SUDO_PASSWD = ""  #default_cfg.get("Permission", "passwd")
-DEFAULT_DB_BENCH = "/users/Ruisong/hybridrocks/db_bench" #default_cfg.get("Paths", "db_bench_path")
+DEFAULT_DB_BENCH = "/users/Ruisong/nvme/hybridrocks/db_bench" #default_cfg.get("Paths", "db_bench_path")
 
 CPU_RESTRICTING_TYPE = -1 #int(default_cfg.get("CPU", "limit_type"))
 
@@ -31,7 +31,7 @@ DEFAULT_BLOOM_BIT = 10
 
 # default entry options
 DEFAULT_KEY_SIZE = 16
-DEFAULT_VALUE_SIZE = 256
+DEFAULT_VALUE_SIZE = 200
 # DEFAULT_DB_SIZE = 200 * 1024 * 1024 * 1024  #int(default_cfg.get("Entry Control", "db_size"))
 # DEFAULT_ENTRY_COUNT = int(DEFAULT_DB_SIZE / DEFAULT_VALUE_SIZE)
 DEFAULT_ENTRY_COUNT = 1000000000 # 1 billion, 1G entries
