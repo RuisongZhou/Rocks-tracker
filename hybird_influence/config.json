@@ -17,6 +17,6 @@
         "NVMESSD" : "/users/Ruisong/rocksdb_nvme"
     },
     "fast_device_size" : [
-        2, 4, 6, 8, 10, 12, 14, 16, 18, 20
+        1, 2, 4, 8, 16, 32
     ]
 }
