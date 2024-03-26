@@ -7,14 +7,13 @@
     ],
     "storage_paths": [
         {
-            "path": "/users/Ruisong/rocksdb_result",
+            "path": "/users/Ruisong/nvme/rocksdb_result",
             "media_type": "SATASSD"
         }
     ],
     "hybrid_storage_paths": {
-        "SATAHDD" : "/users/Ruisong/rocksdb_hdd",
-        "SATASSD" : "/users/Ruisong/rocksdb_ssd",
-        "NVMESSD" : "/users/Ruisong/rocksdb_nvme"
+        "SATASSD" : "/users/Ruisong/ssd",
+        "NVMESSD" : "/users/Ruisong/nvme/rocksdb_nvme"
     },
     "fast_device_size" : [
         1, 2, 4, 8, 16, 32
