@@ -27,7 +27,7 @@ if __name__ == '__main__':
         target_result_dir = result_dir+ "f" + str(fast_device_size_base)  + "_v128"
         # L0 256M L1 2560M L2 25.6G L3 256000M
         slow_size = DEFAULT_ENTRY_COUNT * (128 + 8)
-        fast_size = int(slow_size * fast_device_size_base_list / 100)
+        fast_size = int(slow_size * fast_device_size_base / 100)
         ssd_path = parameter_dict["hybrid_storage_paths"]["SATASSD"]
         nvme_path = parameter_dict["hybrid_storage_paths"]["NVMESSD"]
         print(target_result_dir)
