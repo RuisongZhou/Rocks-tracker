@@ -47,7 +47,7 @@ if __name__ == '__main__':
     for value_size in [16, 32, 64, 256, 512, 1024]:
 
         target_result_dir = result_dir + "f1_v" + str(value_size)
-        slow_size = DEFAULT_ENTRY_COUNT * (128 + 8)
+        slow_size = DEFAULT_ENTRY_COUNT * (value_size + 8)
         fast_size = int(slow_size * 0.1)
         runner = DB_launcher(
             env, target_result_dir, db_bench=DEFAULT_DB_BENCH, extend_options={
