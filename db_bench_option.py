@@ -15,7 +15,7 @@ print("config loaded")
 print("CPU limiting type :", CPU_RESTRICTING_TYPE)
 
 # default Memory parameter
-DEFAULT_MEMTABLE_SIZE = 64 * 1024 * 2014  # 256M, memtable size
+DEFAULT_MEMTABLE_SIZE = 64 * 1024 * 1024  # 64M, memtable size
 DEFAULT_IMMU_COUNT = 2  # how many immutable tables
 DEFAULT_IMMU_COMBIN = 1  # forget about this
 DEFAULT_COMPACTION_TRIGGER = 4  # how many l0 compacted to l1
@@ -38,7 +38,7 @@ DEFAULT_ENTRY_COUNT = 100000000 # 0.1 billion, 100M entries
 DEFAULT_DB_SIZE = DEFAULT_ENTRY_COUNT * (DEFAULT_VALUE_SIZE + DEFAULT_KEY_SIZE)
 
 # default CPU options
-DEFAULT_COMPACTION_WORKER = str(multiprocessing.cpu_count())
+DEFAULT_COMPACTION_WORKER = 8
 CPU_IN_TOTAL = 32 #int(default_cfg.get("CPU", "cpu_in_total"))
 
 ori_parameter_list = {
@@ -52,10 +52,10 @@ ori_parameter_list = {
     "min_write_buffer_number_to_merge": DEFAULT_IMMU_COMBIN,
     "max_write_buffer_number": DEFAULT_IMMU_COUNT,
     "level0_file_num_compaction_trigger": DEFAULT_COMPACTION_TRIGGER,
-    "level0_slowdown_writes_trigger": 20,
+    "level0_slowdown_writes_trigger": 8,
     "max_background_compactions": DEFAULT_COMPACTION_WORKER,
-    # "max_background_flushes": 1,  # we are focus on single material environment
-    "threads": 4,  # control the input pressure, increase all resource requirement
+    "max_background_flushes": 1,  # we are focus on single material environment
+    "threads": 1,  # control the input pressure, increase all resource requirement
     "bloom_bits": str(DEFAULT_BLOOM_BIT),
     "compression_type": DEFAULT_COMPRESSION,
     # "base_background_compactions": 1,

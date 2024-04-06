@@ -37,7 +37,6 @@ if __name__ == '__main__':
                 "value_size":128,
                 "key_size":8,
                 "report_interval_seconds": 1,
-                "duration": 7200,       # 120min
                 "benchmarks":"fillseq,stats,resetstats,fillrandom,stats",
                 "statistics":"true",
             })
@@ -55,7 +54,6 @@ if __name__ == '__main__':
                 "value_size":value_size,
                 "key_size":8,
                 "report_interval_seconds": 1,
-                "duration": 7200,       # 120min
                 "benchmarks":"fillseq,stats,resetstats,fillrandom,stats",
                 "statistics":"true",
             })
