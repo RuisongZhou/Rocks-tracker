@@ -58,6 +58,8 @@ ori_parameter_list = {
     "threads": 1,  # control the input pressure, increase all resource requirement
     "bloom_bits": str(DEFAULT_BLOOM_BIT),
     "compression_type": DEFAULT_COMPRESSION,
+    "ycsb_readwritepercent": 50,
+    "zipf_const": 0.99,
     # "base_background_compactions": 1,
     "report_bg_io_stats": True,
     # "detailed_running_stats":True

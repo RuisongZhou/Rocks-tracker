@@ -24,7 +24,7 @@ if __name__ == '__main__':
     result_dir = "results_nvme_ssd_hybrid/"
     fast_device_size_base_list = parameter_dict["fast_device_size"] 
     for fast_device_size_base in fast_device_size_base_list:    
-        target_result_dir = result_dir+ "f" + str(fast_device_size_base)  + "_v128"
+        target_result_dir = result_dir+ "exp4_" + "f" + str(fast_device_size_base)  + "_v128"
         # L0 256M L1 2560M L2 25.6G L3 256000M
         slow_size = DEFAULT_ENTRY_COUNT * (128 + 8)
         fast_size = int(slow_size * fast_device_size_base / 100)
@@ -37,15 +37,15 @@ if __name__ == '__main__':
                 "value_size":128,
                 "key_size":8,
                 "report_interval_seconds": 1,
-                "benchmarks":"fillseq,stats,resetstats,fillrandom,stats",
+                "benchmarks":"ycsbfilldb,stats,resetstats,ycsbwklda,stats",
                 "statistics":"true",
             })
         runner.run()
 
  
-    for value_size in [16, 32, 64, 256, 512, 1024]:
+    for value_size in [16, 32, 64, 128, 256, 512, 1024]:
 
-        target_result_dir = result_dir + "f1_v" + str(value_size)
+        target_result_dir = result_dir + "exp3_" + "f1_v" + str(value_size)
         slow_size = DEFAULT_ENTRY_COUNT * (value_size + 8)
         fast_size = int(slow_size * 0.1)
         runner = DB_launcher(
@@ -54,10 +54,59 @@ if __name__ == '__main__':
                 "value_size":value_size,
                 "key_size":8,
                 "report_interval_seconds": 1,
-                "benchmarks":"fillseq,stats,resetstats,fillrandom,stats",
+                "benchmarks":"ycsbfilldb,stats,resetstats,ycsbwklda,stats",
                 "statistics":"true",
             })
         runner.run()
+        
+    for skewness in [0, 0.4, 0.6, 0.8, 0.99, 1.2]:
+
+        target_result_dir = result_dir + "exp2_" + "f1_s" + str(skewness) + "_v128" + "write"
+        slow_size = DEFAULT_ENTRY_COUNT * (128 + 8)
+        fast_size = int(slow_size * 0.1)
+        runner = DB_launcher(
+            env, target_result_dir, db_bench=DEFAULT_DB_BENCH, extend_options={
+                "db_path": nvme_path+":"+str(fast_size)+","+ssd_path+":"+str(slow_size),
+                "value_size":128,
+                "key_size":8,
+                "report_interval_seconds": 1,
+                "zipf_const":skewness,
+                "ycsb_readwritepercent":0,
+                "benchmarks":"ycsbfilldb,stats,resetstats,ycsbwklda,stats",
+                "statistics":"true",
+            })
+        runner.run()
+        
+        target_result_dir = result_dir + "exp2_" + "f1_s" + str(skewness) + "_v128" + "read"
+        runner = DB_launcher(
+            env, target_result_dir, db_bench=DEFAULT_DB_BENCH, extend_options={
+                "db_path": nvme_path+":"+str(fast_size)+","+ssd_path+":"+str(slow_size),
+                "value_size":128,
+                "key_size":8,
+                "report_interval_seconds": 1,
+                "zipf_const":skewness,
+                "ycsb_readwritepercent":100,
+                "benchmarks":"ycsbfilldb,stats,resetstats,ycsbwklda,stats",
+                "statistics":"true",
+            })
+        runner.run()
+    
+    for wkld in ["ycsbwklda", "ycsbwkldb", "ycsbwkldc", "ycsbwkldd", "ycsbwklde", "ycsbwkldf"]:
+
+        target_result_dir = result_dir + "exp1_" + "f1_" + wkld  + "_v128"
+        slow_size = DEFAULT_ENTRY_COUNT * (value_size + 8)
+        fast_size = int(slow_size * 0.1)
+        runner = DB_launcher(
+            env, target_result_dir, db_bench=DEFAULT_DB_BENCH, extend_options={
+                "db_path": nvme_path+":"+str(fast_size)+","+ssd_path+":"+str(slow_size),
+                "value_size":value_size,
+                "key_size":8,
+                "report_interval_seconds": 1,
+                "benchmarks":"ycsbfilldb,stats,resetstats," + wkld + ",stats",
+                "statistics":"true",
+            })
+        runner.run()  
+    
 
     reset_CPUs()
     clean_cgroup()
