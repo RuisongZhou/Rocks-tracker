@@ -52,7 +52,7 @@ def restrict_cpus(count, type=0):
         restrict_cpus_by_turning(count)
     elif type == -1:
         pass  # no restricting_cpus, only change the bg threads
-
+    restrict_band_by_cgroup()
 
 def restrict_cpus_by_cgroup(count):
     cgget_result = subprocess.run(
@@ -76,6 +76,20 @@ def restrict_cpus_by_cgroup(count):
     else:
         print("Restrcting failed due to"+back_string)
 
+def restrict_band_by_cgroup():
+    restrict_speed = 200 * 1024 * 1024  #200M/s 
+    # device id 8:0 is the ssd disk
+    cmd = 'echo "8:0 {}" | tee /sys/fs/cgroup/blkio/{}/blkio.throttle.write_bps_device'.format(restrict_speed, CGROUP_NAME)
+    ps = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+    output = ps.communicate()[0]
+    cmd2 = 'echo "8:0 {}" | tee /sys/fs/cgroup/blkio/{}/blkio.throttle.read_bps_device'.format(restrict_speed, CGROUP_NAME)
+    ps = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+    output = ps.communicate()[0]
+    back_string = output.decode('utf-8')
+    if back_string == "8:0 {}\n".format(restrict_speed):
+        print("Restrict the ssd disk band to "+str(restrict_speed)+ "B/s")
+    else:
+        print("Restrcting failed due to"+back_string)
 
 def restrict_cpus_by_turning(count):
     reset_CPUs()
@@ -89,7 +103,7 @@ def restrict_cpus_by_turning(count):
         for id in range(count, CPU_IN_TOTAL):
             turn_off_cpu(id)
         print("finished")
-
+    
 
 def reset_CPUs(out_control=False,limit_type=1):
     

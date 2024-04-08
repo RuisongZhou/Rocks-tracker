@@ -9,14 +9,14 @@ default_cfg.read("default.ini")
 SUDO_PASSWD = ""  #default_cfg.get("Permission", "passwd")
 DEFAULT_DB_BENCH = "/users/Ruisong/nvme/hybridrocks/db_bench" #default_cfg.get("Paths", "db_bench_path")
 
-CPU_RESTRICTING_TYPE = -1 #int(default_cfg.get("CPU", "limit_type"))
+CPU_RESTRICTING_TYPE = 0 #int(default_cfg.get("CPU", "limit_type"))
 
 print("config loaded")
 print("CPU limiting type :", CPU_RESTRICTING_TYPE)
 
 # default Memory parameter
 DEFAULT_MEMTABLE_SIZE = 64 * 1024 * 1024  # 64M, memtable size
-DEFAULT_IMMU_COUNT = 2  # how many immutable tables
+DEFAULT_IMMU_COUNT = 1  # how many immutable tables
 DEFAULT_IMMU_COMBIN = 1  # forget about this
 DEFAULT_COMPACTION_TRIGGER = 4  # how many l0 compacted to l1
 DEFAULT_L1_SIZE = 64 * 1024 * 1024

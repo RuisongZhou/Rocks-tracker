@@ -41,6 +41,8 @@ if __name__ == '__main__':
                 "statistics":"true",
             })
         runner.run()
+        reset_CPUs()
+        clean_cgroup()
 
  
     for value_size in [16, 32, 64, 128, 256, 512, 1024]:
@@ -58,6 +60,8 @@ if __name__ == '__main__':
                 "statistics":"true",
             })
         runner.run()
+        reset_CPUs()
+        clean_cgroup()
         
     for skewness in [0, 0.4, 0.6, 0.8, 0.99, 1.2]:
 
@@ -76,6 +80,8 @@ if __name__ == '__main__':
                 "statistics":"true",
             })
         runner.run()
+        reset_CPUs()
+        clean_cgroup()
         
         target_result_dir = result_dir + "exp2_" + "f1_s" + str(skewness) + "_v128" + "read"
         runner = DB_launcher(
@@ -90,7 +96,10 @@ if __name__ == '__main__':
                 "statistics":"true",
             })
         runner.run()
+        reset_CPUs()
+        clean_cgroup()
     
+    value_size = 128
     for wkld in ["ycsbwklda", "ycsbwkldb", "ycsbwkldc", "ycsbwkldd", "ycsbwklde", "ycsbwkldf"]:
 
         target_result_dir = result_dir + "exp1_" + "f1_" + wkld  + "_v128"
@@ -106,7 +115,6 @@ if __name__ == '__main__':
                 "statistics":"true",
             })
         runner.run()  
-    
 
-    reset_CPUs()
-    clean_cgroup()
+        reset_CPUs()
+        clean_cgroup()
