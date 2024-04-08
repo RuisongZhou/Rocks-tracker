@@ -83,7 +83,7 @@ def restrict_band_by_cgroup():
     ps = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
     output = ps.communicate()[0]
     cmd2 = 'echo "8:0 {}" | tee /sys/fs/cgroup/blkio/{}/blkio.throttle.read_bps_device'.format(restrict_speed, CGROUP_NAME)
-    ps = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+    ps = subprocess.Popen(cmd2,shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
     output = ps.communicate()[0]
     back_string = output.decode('utf-8')
     if back_string == "8:0 {}\n".format(restrict_speed):
