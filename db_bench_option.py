@@ -66,6 +66,7 @@ ori_parameter_list = {
     "open_files" : 512,
     "soft_pending_compaction_bytes_limit" : int(0.1 * DEFAULT_DB_SIZE),
     "hard_pending_compaction_bytes_limit" : int(0.16 * DEFAULT_DB_SIZE),
+    "wal_bytes_per_sync": 4096
 }
 
 
