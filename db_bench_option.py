@@ -16,8 +16,7 @@ print("CPU limiting type :", CPU_RESTRICTING_TYPE)
 
 # default Memory parameter
 DEFAULT_MEMTABLE_SIZE = 64 * 1024 * 1024  # 64M, memtable size
-DEFAULT_IMMU_COUNT = 1  # how many immutable tables
-DEFAULT_IMMU_COMBIN = 1  # forget about this
+DEFAULT_IMMU_COUNT = 2  # how many immutable tables
 DEFAULT_COMPACTION_TRIGGER = 4  # how many l0 compacted to l1
 DEFAULT_L1_SIZE = 64 * 1024 * 1024
 
@@ -34,8 +33,9 @@ DEFAULT_KEY_SIZE = 8
 DEFAULT_VALUE_SIZE = 128
 # DEFAULT_DB_SIZE = 200 * 1024 * 1024 * 1024  #int(default_cfg.get("Entry Control", "db_size"))
 # DEFAULT_ENTRY_COUNT = int(DEFAULT_DB_SIZE / DEFAULT_VALUE_SIZE)
-DEFAULT_ENTRY_COUNT = 100000000 # 0.1 billion, 100M entries
-DEFAULT_DB_SIZE = DEFAULT_ENTRY_COUNT * (DEFAULT_VALUE_SIZE + DEFAULT_KEY_SIZE)
+
+DEFAULT_DB_SIZE = 100 * 1024 * 1024 * 1024
+DEFAULT_ENTRY_COUNT = DEFAULT_DB_SIZE / DEFAULT_VALUE_SIZE
 
 # default CPU options
 DEFAULT_COMPACTION_WORKER = 8
@@ -49,21 +49,20 @@ ori_parameter_list = {
     "value_size": DEFAULT_VALUE_SIZE,
     "write_buffer_size": DEFAULT_MEMTABLE_SIZE,  # Memtable Size, 256 M
     "target_file_size_base": str(DEFAULT_L1_SIZE),  # L1 FILE
-    "min_write_buffer_number_to_merge": DEFAULT_IMMU_COMBIN,
     "max_write_buffer_number": DEFAULT_IMMU_COUNT,
     "level0_file_num_compaction_trigger": DEFAULT_COMPACTION_TRIGGER,
     "level0_slowdown_writes_trigger": 8,
     "max_background_compactions": DEFAULT_COMPACTION_WORKER,
     "max_background_flushes": 1,  # we are focus on single material environment
-    "threads": 1,  # control the input pressure, increase all resource requirement
+    "threads": 8,  # control the input pressure, increase all resource requirement
     "bloom_bits": str(DEFAULT_BLOOM_BIT),
     "compression_type": DEFAULT_COMPRESSION,
     "ycsb_readwritepercent": 50,
-    "zipf_const": 0.99,
+    "zipf_const": 0.86,
     # "base_background_compactions": 1,
     "report_bg_io_stats": True,
     # "detailed_running_stats":True
-    "open_files" : 512,
+    "open_files" : 1000,
     "soft_pending_compaction_bytes_limit" : int(0.1 * DEFAULT_DB_SIZE),
     "hard_pending_compaction_bytes_limit" : int(0.16 * DEFAULT_DB_SIZE),
     "wal_bytes_per_sync": 4096

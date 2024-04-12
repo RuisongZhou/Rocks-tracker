@@ -6,7 +6,7 @@ os.chdir("../")
 print(os.getcwd())
 sys.path.insert(0, '.')
 
-from db_bench_option import DEFAULT_DB_BENCH, DEFAULT_L1_SIZE, DEFAULT_COMPACTION_TRIGGER, DEFAULT_ENTRY_COUNT
+from db_bench_option import DEFAULT_DB_BENCH, DEFAULT_L1_SIZE, DEFAULT_DB_SIZE, DEFAULT_ENTRY_COUNT
 from db_bench_option import load_config_file
 from db_bench_option import set_parameters_to_env
 from db_bench_runner import DB_launcher
@@ -26,7 +26,7 @@ if __name__ == '__main__':
     for fast_device_size_base in fast_device_size_base_list:    
         target_result_dir = result_dir+ "exp4_" + "f" + str(fast_device_size_base)  + "_v128"
         # L0 256M L1 2560M L2 25.6G L3 256000M
-        slow_size = DEFAULT_ENTRY_COUNT * (128 + 8)
+        slow_size = DEFAULT_DB_SIZE
         fast_size = int(slow_size * fast_device_size_base / 100)
         ssd_path = parameter_dict["hybrid_storage_paths"]["SATASSD"]
         nvme_path = parameter_dict["hybrid_storage_paths"]["NVMESSD"]
@@ -36,6 +36,7 @@ if __name__ == '__main__':
                 "db_path": nvme_path+":"+str(fast_size)+","+ssd_path+":"+str(slow_size),
                 "value_size":128,
                 "key_size":8,
+                "num": int(DEFAULT_DB_SIZE / 128),
                 "report_interval_seconds": 1,
                 "benchmarks":"ycsbfilldb,stats,resetstats,ycsbwklda,stats",
                 "statistics":"true",
@@ -48,12 +49,13 @@ if __name__ == '__main__':
     for value_size in [16, 32, 64, 128, 256, 512, 1024]:
 
         target_result_dir = result_dir + "exp3_" + "f1_v" + str(value_size)
-        slow_size = DEFAULT_ENTRY_COUNT * (value_size + 8)
+        slow_size = DEFAULT_DB_SIZE
         fast_size = int(slow_size * 0.1)
         runner = DB_launcher(
             env, target_result_dir, db_bench=DEFAULT_DB_BENCH, extend_options={
                 "db_path": nvme_path+":"+str(fast_size)+","+ssd_path+":"+str(slow_size),
                 "value_size":value_size,
+                "num": int(DEFAULT_DB_SIZE / value_size),
                 "key_size":8,
                 "report_interval_seconds": 1,
                 "benchmarks":"ycsbfilldb,stats,resetstats,ycsbwklda,stats",
@@ -66,12 +68,13 @@ if __name__ == '__main__':
     for skewness in [0, 0.4, 0.6, 0.8, 0.99, 1.2]:
 
         target_result_dir = result_dir + "exp2_" + "f1_s" + str(skewness) + "_v128" + "write"
-        slow_size = DEFAULT_ENTRY_COUNT * (128 + 8)
+        slow_size = DEFAULT_DB_SIZE
         fast_size = int(slow_size * 0.1)
         runner = DB_launcher(
             env, target_result_dir, db_bench=DEFAULT_DB_BENCH, extend_options={
                 "db_path": nvme_path+":"+str(fast_size)+","+ssd_path+":"+str(slow_size),
                 "value_size":128,
+                "num": int(DEFAULT_DB_SIZE / 128),
                 "key_size":8,
                 "report_interval_seconds": 1,
                 "zipf_const":skewness,
@@ -89,6 +92,7 @@ if __name__ == '__main__':
                 "db_path": nvme_path+":"+str(fast_size)+","+ssd_path+":"+str(slow_size),
                 "value_size":128,
                 "key_size":8,
+                "num": int(DEFAULT_DB_SIZE / 128),
                 "report_interval_seconds": 1,
                 "zipf_const":skewness,
                 "ycsb_readwritepercent":100,
@@ -99,17 +103,18 @@ if __name__ == '__main__':
         reset_CPUs()
         clean_cgroup()
     
-    value_size = 128
+
     for wkld in ["ycsbwklda", "ycsbwkldb", "ycsbwkldc", "ycsbwkldd", "ycsbwklde", "ycsbwkldf"]:
 
         target_result_dir = result_dir + "exp1_" + "f1_" + wkld  + "_v128"
-        slow_size = DEFAULT_ENTRY_COUNT * (value_size + 8)
+        slow_size = DEFAULT_DB_SIZE
         fast_size = int(slow_size * 0.1)
         runner = DB_launcher(
             env, target_result_dir, db_bench=DEFAULT_DB_BENCH, extend_options={
                 "db_path": nvme_path+":"+str(fast_size)+","+ssd_path+":"+str(slow_size),
-                "value_size":value_size,
+                "value_size":128,
                 "key_size":8,
+                "num": int(DEFAULT_DB_SIZE / 128),
                 "report_interval_seconds": 1,
                 "benchmarks":"ycsbfilldb,stats,resetstats," + wkld + ",stats",
                 "statistics":"true",
