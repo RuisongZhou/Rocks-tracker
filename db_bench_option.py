@@ -17,6 +17,7 @@ print("CPU limiting type :", CPU_RESTRICTING_TYPE)
 # default Memory parameter
 DEFAULT_MEMTABLE_SIZE = 64 * 1024 * 1024  # 64M, memtable size
 DEFAULT_IMMU_COUNT = 2  # how many immutable tables
+DEFAULT_IMMU_COMBIN = 1
 DEFAULT_COMPACTION_TRIGGER = 4  # how many l0 compacted to l1
 DEFAULT_L1_SIZE = 64 * 1024 * 1024
 
@@ -48,6 +49,7 @@ ori_parameter_list = {
     "key_size": DEFAULT_KEY_SIZE,
     "value_size": DEFAULT_VALUE_SIZE,
     "write_buffer_size": DEFAULT_MEMTABLE_SIZE,  # Memtable Size, 256 M
+    "min_write_buffer_number_to_merge": DEFAULT_IMMU_COMBIN,
     "target_file_size_base": str(DEFAULT_L1_SIZE),  # L1 FILE
     "max_write_buffer_number": DEFAULT_IMMU_COUNT,
     "level0_file_num_compaction_trigger": DEFAULT_COMPACTION_TRIGGER,
@@ -62,7 +64,7 @@ ori_parameter_list = {
     # "base_background_compactions": 1,
     "report_bg_io_stats": True,
     # "detailed_running_stats":True
-    "open_files" : 1000,
+    "open_files" : 5120,
     "soft_pending_compaction_bytes_limit" : int(0.1 * DEFAULT_DB_SIZE),
     "hard_pending_compaction_bytes_limit" : int(0.16 * DEFAULT_DB_SIZE),
     "wal_bytes_per_sync": 4096
