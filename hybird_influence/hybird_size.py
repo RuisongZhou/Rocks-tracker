@@ -41,10 +41,12 @@ if __name__ == '__main__':
                 "zipf_const": 0,
                 "benchmarks":"ycsbwklda,stats",
                 "statistics":"true",
+                "wal_bytes_per_sync" : 0,
+                "max_background_flushes" : 2
             })
     runner.run()
 
-    for thread_num in [1, 2, 4, 8, 16]:
+    for thread_num in [16, 8, 4, 2, 1]:
         target_result_dir = result_dir + "exp5_ratio0.1" + "thread_" + str(thread_num) 
      
         runner = DB_launcher(
@@ -59,7 +61,8 @@ if __name__ == '__main__':
                 "zipf_const": 0,
                 "benchmarks":"ycsbwklda,stats",
                 "statistics":"true",
-                "use_existing_db" : True
+                "use_existing_db" : True,
+                "duration" : 3600
             })
         runner.run()
 
