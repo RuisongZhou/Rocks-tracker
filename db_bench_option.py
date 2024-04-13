@@ -56,7 +56,7 @@ ori_parameter_list = {
     "level0_slowdown_writes_trigger": 8,
     "max_background_compactions": DEFAULT_COMPACTION_WORKER,
     "max_background_flushes": 1,  # we are focus on single material environment
-    "threads": 1,  # control the input pressure, increase all resource requirement
+    "threads": 8,  # control the input pressure, increase all resource requirement
     "bloom_bits": str(DEFAULT_BLOOM_BIT),
     "compression_type": DEFAULT_COMPRESSION,
     "ycsb_readwritepercent": 50,
@@ -67,7 +67,8 @@ ori_parameter_list = {
     "open_files" : 5120,
     "soft_pending_compaction_bytes_limit" : int(0.1 * DEFAULT_DB_SIZE),
     "hard_pending_compaction_bytes_limit" : int(0.16 * DEFAULT_DB_SIZE),
-    "wal_bytes_per_sync": 4096
+    "wal_bytes_per_sync": 4096,
+    "use_direct_io_for_flush_and_compaction" : True,
 }
 
 
@@ -179,8 +180,8 @@ def parameter_tuning(db_bench, para_dic={}):
     # some values need calculation
     parameter_list["num"] = str(para_dic.get("num", str(
         int(DEFAULT_DB_SIZE / int(parameter_list["value_size"])))))
-    parameter_list["level0_stop_writes_trigger"] = int(
-        int(parameter_list["level0_slowdown_writes_trigger"])*36/20)
+    # parameter_list["level0_stop_writes_trigger"] = int(
+    #     int(parameter_list["level0_slowdown_writes_trigger"])*36/20)
 
     # transform into string format
     for parameter in parameter_list:
