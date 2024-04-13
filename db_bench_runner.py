@@ -77,7 +77,7 @@ def restrict_cpus_by_cgroup(count):
         print("Restrcting failed due to"+back_string)
 
 def restrict_band_by_cgroup():
-    restrict_speed = 200 * 1024 * 1024  #200M/s 
+    restrict_speed = 400 * 1024 * 1024  #400M/s 
     # device id 8:0 is the ssd disk
     cmd = 'echo "8:0 {}" | tee /sys/fs/cgroup/blkio/{}/blkio.throttle.write_bps_device'.format(restrict_speed, CGROUP_NAME)
     ps = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)

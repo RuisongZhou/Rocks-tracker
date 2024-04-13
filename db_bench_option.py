@@ -56,7 +56,7 @@ ori_parameter_list = {
     "level0_slowdown_writes_trigger": 8,
     "max_background_compactions": DEFAULT_COMPACTION_WORKER,
     "max_background_flushes": 1,  # we are focus on single material environment
-    "threads": 8,  # control the input pressure, increase all resource requirement
+    "threads": 1,  # control the input pressure, increase all resource requirement
     "bloom_bits": str(DEFAULT_BLOOM_BIT),
     "compression_type": DEFAULT_COMPRESSION,
     "ycsb_readwritepercent": 50,
