@@ -197,9 +197,9 @@ def start_db_bench(db_bench_exec, db_path, options={}, cgroup={}, perf={}):
             os.path.abspath(db_bench_exec), para_dic=options)
         bootstrap_list = []
 
-        if cgroup:
+        # if cgroup:
             # cgroup = {"cgexec":"/usr/bin/cgexec","argument","-g","groups","blkio,cpu:a_group"}
-            bootstrap_list.extend(cgroup.values())
+            # bootstrap_list.extend(cgroup.values())
 
         bootstrap_list.extend(db_bench_options)
 
