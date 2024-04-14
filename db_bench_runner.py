@@ -477,10 +477,11 @@ class DB_TASK:
         # clear the cache, or the read bytes will be influenced to be 0 in most cases.
         print("clear the memory cache since all input is the same")
         os.system("sync; echo 1 | sudo tee /proc/sys/vm/drop_caches")
-        if self.cpu_cores == CPU_IN_TOTAL or force_record == True or CPU_RESTRICTING_TYPE == -1:
-            self.run_in_full_cpu(gap)
-        else:
-            self.run_in_limited_cpu(1)
+        self.run_in_full_cpu(gap)
+        # if self.cpu_cores == CPU_IN_TOTAL or force_record == True or CPU_RESTRICTING_TYPE == -1:
+        #     self.run_in_full_cpu(gap)
+        # else:
+        #     self.run_in_limited_cpu(1)
 
 
 class DB_launcher:
