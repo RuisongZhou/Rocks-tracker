@@ -9,7 +9,7 @@ default_cfg.read("default.ini")
 SUDO_PASSWD = ""  #default_cfg.get("Permission", "passwd")
 DEFAULT_DB_BENCH = "/users/Ruisong/nvme/hybridrocks/db_bench" #default_cfg.get("Paths", "db_bench_path")
 
-CPU_RESTRICTING_TYPE = 0 #int(default_cfg.get("CPU", "limit_type"))
+CPU_RESTRICTING_TYPE = -1 #int(default_cfg.get("CPU", "limit_type"))
 
 print("config loaded")
 print("CPU limiting type :", CPU_RESTRICTING_TYPE)
@@ -35,7 +35,7 @@ DEFAULT_VALUE_SIZE = 128
 # DEFAULT_DB_SIZE = 200 * 1024 * 1024 * 1024  #int(default_cfg.get("Entry Control", "db_size"))
 # DEFAULT_ENTRY_COUNT = int(DEFAULT_DB_SIZE / DEFAULT_VALUE_SIZE)
 
-DEFAULT_DB_SIZE = 100 * 1024 * 1024 * 1024
+DEFAULT_DB_SIZE = 128 * 100000000
 DEFAULT_ENTRY_COUNT = DEFAULT_DB_SIZE / DEFAULT_VALUE_SIZE
 
 # default CPU options
