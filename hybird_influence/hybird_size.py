@@ -39,7 +39,7 @@ if __name__ == '__main__':
                 "ycsb_readwritepercent":0,
                 "max_background_compactions": 16,  #额外一个flush线程
                 "zipf_const": 0,
-                "benchmarks":"ycsbwklda,stats",
+                "benchmarks":"ycsbfilldb,stats",
                 "statistics":"true",
                 "wal_bytes_per_sync" : 0,
                 "max_background_flushes" : 2
@@ -58,11 +58,12 @@ if __name__ == '__main__':
                 "report_interval_seconds": 1,
                 "ycsb_readwritepercent":0,
                 "max_background_compactions": thread_num + 1,  #额外一个flush线程
+                "use_direct_io_for_flush_and_compaction": True,
                 "zipf_const": 0,
                 "benchmarks":"ycsbwklda,stats",
                 "statistics":"true",
                 "use_existing_db" : True,
-                "duration" : 3600
+                "duration" : 1800,
             })
         runner.run()
 
