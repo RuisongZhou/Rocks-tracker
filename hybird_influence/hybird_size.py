@@ -47,7 +47,7 @@ if __name__ == '__main__':
                 "benchmarks":"ycsbfilldb,stats,resetstats,ycsbwklda,stats",
                 "statistics":"true",
                 "use_existing_db" : True,
-                "duration" : 1800,
+                # "duration" : 1800,
             })
         runner.run()
 
