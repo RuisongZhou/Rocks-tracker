@@ -12,7 +12,7 @@
         }
     ],
     "hybrid_storage_paths": {
-        "SATASSD" : "/users/Ruisong/ssd",
+        "SATASSD" : "/users/Ruisong/ssd/rocksdb_ssd",
         "NVMESSD" : "/users/Ruisong/nvme/rocksdb_nvme"
     },
     "fast_device_size" : [
