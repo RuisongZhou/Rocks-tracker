@@ -416,7 +416,7 @@ class DB_TASK:
 
     def run_in_full_cpu(self, gap=1):
         restrict_cpus(self.cpu_cores, CPU_RESTRICTING_TYPE)
-        self.parameter_list["max_background_compactions"] = self.cpu_cores
+        # self.parameter_list["max_background_compactions"] = self.cpu_cores
         devices = ["sda", "sdb", "nvme0n1"]
         db_paths = []
 
