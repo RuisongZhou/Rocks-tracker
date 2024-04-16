@@ -30,9 +30,9 @@ if __name__ == '__main__':
     slow_size = DEFAULT_DB_SIZE
     fast_size = int(slow_size * 0.1)
 
-    for thread_num in [16, 8, 4, 2, 1]:
+    for thread_num in [4, 2, 1]:
         target_result_dir = result_dir + "exp5_ratio0.1" + "thread_" + str(thread_num) 
-     
+        env.CPU_experiment_set = [thread_num+1]
         runner = DB_launcher(
             env, target_result_dir, db_bench=DEFAULT_DB_BENCH, extend_options={
                 "db_path": nvme_path+":"+str(fast_size)+","+ssd_path+":"+str(slow_size),
@@ -41,7 +41,7 @@ if __name__ == '__main__':
                 "key_size":8,
                 "report_interval_seconds": 1,
                 "ycsb_readwritepercent":0,
-                "max_background_compactions": thread_num + 1,  #额外一个flush线程
+                "max_background_compactions": thread_num,  #额外一个flush线程
                 "use_direct_io_for_flush_and_compaction": True,
                 "zipf_const": 0,
                 "benchmarks":"ycsbfilldb,stats,resetstats,ycsbwklda,stats",
