@@ -1,6 +1,6 @@
 {
     "cpu_set": [
-        16
+        8
     ],
     "memtable_size_set": [
         "64*1024*1024"

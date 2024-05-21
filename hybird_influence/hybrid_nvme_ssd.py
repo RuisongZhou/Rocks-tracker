@@ -55,7 +55,7 @@ if __name__ == '__main__':
             env, target_result_dir, db_bench=DEFAULT_DB_BENCH, extend_options={
                 "db_path": nvme_path+":"+str(fast_size)+","+ssd_path+":"+str(slow_size),
                 "value_size":value_size,
-                "num": int(DEFAULT_DB_SIZE / value_size),
+                "num": int(DEFAULT_DB_SIZE * 128 / value_size),
                 "key_size":8,
                 "report_interval_seconds": 1,
                 "benchmarks":"ycsbfilldb,stats,resetstats,ycsbwklda,stats",
