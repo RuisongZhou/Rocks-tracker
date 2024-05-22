@@ -40,6 +40,7 @@ if __name__ == '__main__':
                 "report_interval_seconds": 1,
                 "benchmarks":"ycsbfilldb,stats,resetstats,ycsbwklda,stats",
                 "statistics":"true",
+                "zipf_const":0.86,
             })
         runner.run()
         reset_CPUs()
@@ -60,6 +61,7 @@ if __name__ == '__main__':
                 "report_interval_seconds": 1,
                 "benchmarks":"ycsbfilldb,stats,resetstats,ycsbwklda,stats",
                 "statistics":"true",
+                "zipf_const":0.86,
             })
         runner.run()
         reset_CPUs()
@@ -97,6 +99,23 @@ if __name__ == '__main__':
                 "ycsb_readwritepercent":100,
                 "benchmarks":"ycsbfilldb,stats,resetstats,ycsbwklda,stats",
                 "statistics":"true",
+                
+            })
+        runner.run()
+        reset_CPUs()
+
+        target_result_dir = result_dir + "exp2_" + "f1_s" + str(skewness) + "_v128" + "mix"
+        runner = DB_launcher(
+            env, target_result_dir, db_bench=DEFAULT_DB_BENCH, extend_options={
+                "db_path": nvme_path+":"+str(fast_size)+","+ssd_path+":"+str(slow_size),
+                "value_size":128,
+                "key_size":8,
+                "num": int(DEFAULT_DB_SIZE / 128),
+                "report_interval_seconds": 1,
+                "zipf_const":skewness,
+                "benchmarks":"ycsbfilldb,stats,resetstats,ycsbwklda,stats",
+                "statistics":"true",
+                
             })
         runner.run()
         reset_CPUs()
@@ -118,6 +137,7 @@ if __name__ == '__main__':
                 "report_interval_seconds": 1,
                 "benchmarks":"ycsbfilldb,stats,resetstats," + wkld + ",stats",
                 "statistics":"true",
+                "zipf_const":0.86,
             })
         runner.run()  
 

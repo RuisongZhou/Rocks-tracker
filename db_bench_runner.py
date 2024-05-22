@@ -52,7 +52,7 @@ def restrict_cpus(count, type=0):
         restrict_cpus_by_turning(count)
     elif type == -1:
         pass  # no restricting_cpus, only change the bg threads
-    restrict_band_by_cgroup()
+    # restrict_band_by_cgroup()
 
 def restrict_cpus_by_cgroup(count):
     cgget_result = subprocess.run(
