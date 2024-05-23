@@ -20,7 +20,8 @@ if __name__ == '__main__':
     env = HardwareEnvironment()
     parameter_dict = load_config_file('config.json')
     set_parameters_to_env(parameter_dict, env)
-
+    ssd_path = parameter_dict["hybrid_storage_paths"]["SATASSD"]
+    nvme_path = parameter_dict["hybrid_storage_paths"]["NVMESSD"]
     result_dir = "results_nvme_ssd_hybrid/"
     fast_device_size_base_list = parameter_dict["fast_device_size"] 
     for fast_device_size_base in fast_device_size_base_list:    
@@ -28,8 +29,7 @@ if __name__ == '__main__':
         # L0 256M L1 2560M L2 25.6G L3 256000M
         slow_size = DEFAULT_DB_SIZE
         fast_size = int(slow_size * fast_device_size_base / 100)
-        ssd_path = parameter_dict["hybrid_storage_paths"]["SATASSD"]
-        nvme_path = parameter_dict["hybrid_storage_paths"]["NVMESSD"]
+       
         print(target_result_dir)
         runner = DB_launcher(
             env, target_result_dir, db_bench=DEFAULT_DB_BENCH, extend_options={
@@ -47,7 +47,7 @@ if __name__ == '__main__':
     # clean_cgroup()
 
  
-    for value_size in [16, 32, 64, 128, 256, 512, 1024]:
+    for value_size in [32, 64, 256, 512, 1024]:
 
         target_result_dir = result_dir + "exp3_" + "f1_v" + str(value_size)
         slow_size = DEFAULT_DB_SIZE
