@@ -420,7 +420,7 @@ class DB_TASK:
         devices = ["sda", "sdb", "nvme0n1"]
         db_paths = []
 
-        if "db_path" in self.parameter_list:
+        if "db_path" in self.parameter_list and ("use_existing_db" not in self.parameter_list or self.parameter_list["use_existing_db"] == "false"):
             print("db_paths: %s" % self.parameter_list["db_path"])
             regex = r"(\.\/\w+)*(\/\w+)+"
             matches = re.finditer(
