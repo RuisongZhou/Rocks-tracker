@@ -25,8 +25,8 @@ if __name__ == '__main__':
     result_dir = "results_nvme_ssd_hybrid/"
     
     nvme_back = "/".join(parameter_dict["hybrid_storage_paths"]["NVMESSD"].split("/")[-1])
-    ssd_back_dir = "/".join(nvme_back, "ssd_backup")
-    nvme_back_dir = "/".join(nvme_back, "nvme_backup")
+    ssd_back_dir = "/".join([nvme_back, "ssd_backup"])
+    nvme_back_dir = "/".join([nvme_back, "nvme_backup"])
     # load data
     target_result_dir = result_dir + "exp_load"
     slow_size = DEFAULT_DB_SIZE
