@@ -32,11 +32,11 @@ if __name__ == '__main__':
     log_back_dir  = "/".join([nvme_back, "log_wal"])
     print("ssd_back_dir: ", ssd_back_dir)
 
-    if not os.path.exists(nvme_back):
-        os.mkdir(nvme_back)
-    shutil.rmtree(ssd_back_dir)
-    shutil.rmtree(nvme_back)
-    shutil.rmtree(log_back_dir)
+    # if not os.path.exists(nvme_back):
+    #     os.mkdir(nvme_back)
+    shutil.rmtree(ssd_back_dir,ignore_errors=True)
+    shutil.rmtree(nvme_back,ignore_errors=True)
+    shutil.rmtree(log_back_dir,ignore_errors=True)
 
     # load data
     target_result_dir = result_dir + "exp_load"
