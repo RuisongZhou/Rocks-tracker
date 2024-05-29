@@ -29,6 +29,8 @@ if __name__ == '__main__':
         os.mkdir(nvme_back)
     ssd_back_dir = "/".join([nvme_back, "ssd_backup"])
     nvme_back_dir = "/".join([nvme_back, "nvme_backup"])
+    log_back_dir  = "/".join([nvme_back, "log_wal"])
+    log_path = parameter_dict["storage_paths"][0]["path"]
     # load data
     target_result_dir = result_dir + "exp_load"
     slow_size = DEFAULT_DB_SIZE
@@ -51,7 +53,7 @@ if __name__ == '__main__':
     runner.run()
     shutil.copytree(ssd_path, ssd_back_dir)
     shutil.copytree(nvme_path, nvme_back_dir)
-    
+    shutil.copytree(log_path, log_back_dir)
     for wkld in ["ycsbwklda", "ycsbwkldb", "ycsbwkldc", "ycsbwkldd", "ycsbwklde", "ycsbwkldf"]:
         target_result_dir = result_dir + "exp1_" + "f1_" + wkld  + "_v128"
         slow_size = DEFAULT_DB_SIZE
@@ -70,10 +72,10 @@ if __name__ == '__main__':
             })
         runner.run()  
         reset_CPUs()
-        shutil.rmtree(ssd_path)
-        shutil.copytree(ssd_back_dir, ssd_path)
-        shutil.rmtree(nvme_path)
-        shutil.copytree(nvme_back_dir, nvme_path)
+        # shutil.rmtree(ssd_path)
+        # shutil.copytree(ssd_back_dir, ssd_path)
+        # shutil.rmtree(nvme_path)
+        # shutil.copytree(nvme_back_dir, nvme_path)
 
 
     slow_size = DEFAULT_DB_SIZE
@@ -99,7 +101,8 @@ if __name__ == '__main__':
         shutil.copytree(ssd_back_dir, ssd_path)
         shutil.rmtree(nvme_path)
         shutil.copytree(nvme_back_dir, nvme_path)
-
+        shutil.rmtree(log_path)
+        shutil.copytree(log_back_dir, log_path)
         target_result_dir = result_dir + "exp2_" + "f1_s" + str(skewness) + "_v128" + "write"
         runner = DB_launcher(
             env, target_result_dir, db_bench=DEFAULT_DB_BENCH, extend_options={
@@ -120,7 +123,8 @@ if __name__ == '__main__':
         shutil.copytree(ssd_back_dir, ssd_path)
         shutil.rmtree(nvme_path)
         shutil.copytree(nvme_back_dir, nvme_path)
-
+        shutil.rmtree(log_path)
+        shutil.copytree(log_back_dir, log_path)
         
         target_result_dir = result_dir + "exp2_" + "f1_s" + str(skewness) + "_v128" + "read"
         runner = DB_launcher(
@@ -143,11 +147,15 @@ if __name__ == '__main__':
         shutil.copytree(ssd_back_dir, ssd_path)
         shutil.rmtree(nvme_path)
         shutil.copytree(nvme_back_dir, nvme_path)
+        shutil.rmtree(log_path)
+        shutil.copytree(log_back_dir, log_path)
     # clean_cgroup()
     
     shutil.rmtree(nvme_back_dir)
     shutil.rmtree(ssd_back_dir)
-
+    shutil.rmtree(log_back_dir)
+    exit(0)
+    
     for value_size in [32, 64, 256, 512, 1024]:
         target_result_dir = result_dir + "exp3_" + "f1_v" + str(value_size)
         slow_size = DEFAULT_DB_SIZE
