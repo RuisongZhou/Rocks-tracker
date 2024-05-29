@@ -30,6 +30,7 @@ if __name__ == '__main__':
     ssd_back_dir = "/".join([nvme_back, "ssd_backup"])
     nvme_back_dir = "/".join([nvme_back, "nvme_backup"])
     log_back_dir  = "/".join([nvme_back, "log_wal"])
+    print("ssd_back_dir: ", ssd_back_dir)
     shutil.rmtree(ssd_back_dir)
     shutil.rmtree(nvme_back)
     shutil.rmtree(log_back_dir)
@@ -58,7 +59,7 @@ if __name__ == '__main__':
     shutil.copytree(ssd_path, ssd_back_dir)
     shutil.copytree(nvme_path, nvme_back_dir)
     shutil.copytree(log_path, log_back_dir)
-    
+
     for wkld in ["ycsbwklda", "ycsbwkldb", "ycsbwkldc", "ycsbwkldd", "ycsbwklde", "ycsbwkldf"]:
         target_result_dir = result_dir + "exp1_" + "f1_" + wkld  + "_v128"
         slow_size = DEFAULT_DB_SIZE
