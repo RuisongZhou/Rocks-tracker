@@ -22,20 +22,22 @@ if __name__ == '__main__':
     set_parameters_to_env(parameter_dict, env)
     ssd_path = parameter_dict["hybrid_storage_paths"]["SATASSD"]
     nvme_path = parameter_dict["hybrid_storage_paths"]["NVMESSD"]
+    log_path = parameter_dict["storage_paths"][0]["path"]
     result_dir = "results_nvme_ssd_hybrid/"
     
-    nvme_back = "/".join(parameter_dict["hybrid_storage_paths"]["NVMESSD"].split("/")[:-1])
-    if not os.path.exists(nvme_back):
-        os.mkdir(nvme_back)
+    nvme_back = "/".join(parameter_dict["hybrid_storage_paths"]["NVMESSD"].split("/")[:-1] + ["backup"])
+    
     ssd_back_dir = "/".join([nvme_back, "ssd_backup"])
     nvme_back_dir = "/".join([nvme_back, "nvme_backup"])
     log_back_dir  = "/".join([nvme_back, "log_wal"])
     print("ssd_back_dir: ", ssd_back_dir)
+
+    if not os.path.exists(nvme_back):
+        os.mkdir(nvme_back)
     shutil.rmtree(ssd_back_dir)
     shutil.rmtree(nvme_back)
     shutil.rmtree(log_back_dir)
 
-    log_path = parameter_dict["storage_paths"][0]["path"]
     # load data
     target_result_dir = result_dir + "exp_load"
     slow_size = DEFAULT_DB_SIZE
