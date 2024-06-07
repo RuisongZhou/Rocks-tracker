@@ -61,7 +61,6 @@ if __name__ == '__main__':
                 "benchmarks":"fillseq,stats,overwrite,stats",
                 "statistics":"true",
                 "zipf_const":0,
-                "use_existing_db" : "true",
                 "max_background_flushes": 1,
                 "level0_slowdown_writes_trigger": 20,
                 "level0_stop_writes_trigger": 36,
