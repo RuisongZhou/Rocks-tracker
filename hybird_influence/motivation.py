@@ -42,8 +42,10 @@ if __name__ == '__main__':
     fast_device_size_base_list = []
     j = 1
     level_size =  64 * 1048576 
-    for i in range(0, 5):
-        fast_device_size_base_list.append(level_size)
+    buf_size = 16 * 1048576 * 2
+    fast_device_size_base_list.append(level_size + buf_size) # level 0
+    for i in range(0, 4):
+        fast_device_size_base_list.append(level_size + buf_size) # level 1-4
         level_size *= 8
 
     for fast_device_size_base in fast_device_size_base_list:    
