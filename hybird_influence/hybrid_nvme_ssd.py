@@ -55,7 +55,7 @@ if __name__ == '__main__':
             "use_direct_io_for_flush_and_compaction": "false",
             "disable_wal": "true",
             "max_background_flushes": 4,
-            "threads": 1
+            "threads": 1,
         })
     runner.run()
     shutil.copytree(ssd_path, ssd_back_dir)
