@@ -60,7 +60,7 @@ if __name__ == '__main__':
                 "key_size":8,
                 "num": int(DEFAULT_DB_SIZE / 200),
                 "report_interval_seconds": 1,
-                "benchmarks":"fillseq,stats,overwrite,stats",
+                "benchmarks":"ycsbfilldb,stats,ycsbwklda,stats",
                 "statistics":"true",
                 "zipf_const":0,
                 "max_background_flushes": 1,
