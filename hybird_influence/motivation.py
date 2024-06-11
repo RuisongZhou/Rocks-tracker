@@ -48,7 +48,7 @@ if __name__ == '__main__':
         fast_device_size_base_list.append(level_size + buf_size) # level 1-4
         level_size *= 8
 
-    for fast_device_size_base in fast_device_size_base_list:    
+    for fast_device_size_base in fast_device_size_base_list[::-1]:    
         target_result_dir = result_dir+ "exp_moti" + "pt" + str(fast_device_size_base/1048576)  + "_v192"
         # L0 256M L1 2560M L2 25.6G L3 256000M
         slow_size = DEFAULT_DB_SIZE
@@ -60,7 +60,7 @@ if __name__ == '__main__':
                 "key_size":8,
                 "num": int(DEFAULT_DB_SIZE / 200),
                 "report_interval_seconds": 1,
-                "benchmarks":"fillseq,stats,overwrite,stats",
+                "benchmarks":"ycsbfilldb,stats,ycsbwklda,stats",
                 "statistics":"true",
                 "zipf_const":0,
                 "max_background_flushes": 1,
@@ -75,6 +75,6 @@ if __name__ == '__main__':
         runner.run()
         reset_CPUs()
 
-    shutil.rmtree(nvme_back_dir)
-    shutil.rmtree(ssd_back_dir)
+    # shutil.rmtree(nvme_back_dir)
+    # shutil.rmtree(ssd_back_dir)
     clean_cgroup()
