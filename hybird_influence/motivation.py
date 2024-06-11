@@ -44,9 +44,10 @@ if __name__ == '__main__':
     level_size =  64 * 1048576 
     buf_size = 16 * 1048576 * 2
     fast_device_size_base_list.append(level_size + buf_size) # level 0
-    for i in range(0, 4):
-        fast_device_size_base_list.append(level_size + buf_size) # level 1-4
+    fast_device_size_base_list.append(level_size * 2 + buf_size) # level 1
+    for i in range(0, 3):
         level_size *= 8
+        fast_device_size_base_list.append(level_size + buf_size) # level 2-4
 
     for fast_device_size_base in fast_device_size_base_list[::-1]:    
         target_result_dir = result_dir+ "exp_moti" + "pt" + str(fast_device_size_base/1048576)  + "_v192"
