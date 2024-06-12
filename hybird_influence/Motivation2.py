@@ -63,7 +63,7 @@ if __name__ == '__main__':
     shutil.copytree(log_path, log_back_dir)
 
     
-    for bg_thread in [1, 2, 4, 8, 16,]:
+    for bg_thread in [1, 2, 4, 8, 16]:
         target_result_dir = result_dir + "exp_" + "bg" + str(bg_thread) + "_v128" + "write"
         runner = DB_launcher(
             env, target_result_dir, db_bench=DEFAULT_DB_BENCH, extend_options={
@@ -78,6 +78,7 @@ if __name__ == '__main__':
                 "use_existing_db" : "true",
                 "max_background_compactions":bg_thread,
                 "ycsb_readwritepercent":0,
+                "duration" : 3600
                 # "use_direct_io_for_flush_and_compaction": "true",
                 
             })
