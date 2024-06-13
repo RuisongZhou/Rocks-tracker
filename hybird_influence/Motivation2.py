@@ -32,35 +32,39 @@ if __name__ == '__main__':
     log_back_dir  = "/".join([nvme_back, "log_wal"])
     print("ssd_back_dir: ", ssd_back_dir)
 
-    if not os.path.exists(nvme_back):
-        os.mkdir(nvme_back)
-    shutil.rmtree(ssd_back_dir,ignore_errors=True)
-    shutil.rmtree(nvme_back,ignore_errors=True)
-    shutil.rmtree(log_back_dir,ignore_errors=True)
 
-    # load data
-    target_result_dir = result_dir + "exp_load"
+  
     slow_size = DEFAULT_DB_SIZE
     fast_size = int(slow_size * 0.1)
-    runner = DB_launcher(
-        env, target_result_dir, db_bench=DEFAULT_DB_BENCH, extend_options={
-            "db_path": nvme_path+":"+str(fast_size)+","+ssd_path+":"+str(slow_size),
-            "value_size":128,
-            "num": int(DEFAULT_DB_SIZE / 128),
-            "key_size":8,
-            "report_interval_seconds": 1,
-            "ycsb_readwritepercent":0,
-            "benchmarks":"ycsbfilldb,stats",
-            "statistics":"true",
-            "use_direct_io_for_flush_and_compaction": "false",
-            "disable_wal": "true",
-            "max_background_flushes": 4,
-            "threads": 1,
-        })
-    runner.run()
-    shutil.copytree(ssd_path, ssd_back_dir)
-    shutil.copytree(nvme_path, nvme_back_dir)
-    shutil.copytree(log_path, log_back_dir)
+    
+    if not os.path.exists(nvme_back):
+        os.mkdir(nvme_back)
+
+        shutil.rmtree(ssd_back_dir,ignore_errors=True)
+        shutil.rmtree(nvme_back,ignore_errors=True)
+        shutil.rmtree(log_back_dir,ignore_errors=True)
+
+        # load data
+        target_result_dir = result_dir + "exp_load"
+        runner = DB_launcher(
+            env, target_result_dir, db_bench=DEFAULT_DB_BENCH, extend_options={
+                "db_path": nvme_path+":"+str(fast_size)+","+ssd_path+":"+str(slow_size),
+                "value_size":128,
+                "num": int(DEFAULT_DB_SIZE / 128),
+                "key_size":8,
+                "report_interval_seconds": 1,
+                "ycsb_readwritepercent":0,
+                "benchmarks":"ycsbfilldb,stats",
+                "statistics":"true",
+                "use_direct_io_for_flush_and_compaction": "false",
+                "disable_wal": "true",
+                "max_background_flushes": 4,
+                "threads": 1,
+            })
+        runner.run()
+        shutil.copytree(ssd_path, ssd_back_dir)
+        shutil.copytree(nvme_path, nvme_back_dir)
+        shutil.copytree(log_path, log_back_dir)
 
     
     for bg_thread in [1, 2, 4, 8, 16]:
